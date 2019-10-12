@@ -1,3 +1,9 @@
+export interface Point {
+  x: number;
+  y: number;
+  z?: number;
+}
+
 export default class Graphics {
   private readonly context: CanvasRenderingContext2D;
 
@@ -5,12 +11,11 @@ export default class Graphics {
     this.context = canvas.getContext('2d');
   }
 
-  draw() {
-    this.context.fillStyle = 'blue';
-    this.context.fillRect(10, 10, 100, 100);
+  drawLine(p1: Point, p2: Point) {
+    this.context.strokeStyle = 'green';
     this.context.beginPath();
-    this.context.moveTo(110, 110);
-    this.context.lineTo(120, 150);
+    this.context.moveTo(p1.x, p1.y);
+    this.context.lineTo(p2.x, p2.y);
     this.context.stroke();
   }
 }

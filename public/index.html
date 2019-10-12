@@ -7,7 +7,15 @@
     <title>Графика</title>
   </head>
   <body>
-    <canvas id="canvas" width="150" height="150"></canvas>
+    <div class="container">
+      <canvas id="canvas" width="300" height="300"></canvas>
+      <div class="toolbar">
+        <div>
+          <input type="range" id="scale" name="scale" min="10" max="100" />
+          <label for="volume">Масштаб</label>
+        </div>
+      </div>
+    </div>
     <script src="/bundle.js"></script>
   </body>
 </html>

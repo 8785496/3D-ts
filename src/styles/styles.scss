@@ -3,3 +3,17 @@ $body-color: grey;
 body {
   background: $body-color;
 }
+
+.container {
+  display: flex;
+  justify-content: center;
+
+  canvas {
+    background: #fff;
+  }
+
+  .toolbar {
+    background: #fff;
+    width: 300px;
+  }
+}
