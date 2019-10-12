@@ -8,11 +8,19 @@
   </head>
   <body>
     <div class="container">
-      <canvas id="canvas" width="300" height="300"></canvas>
+      <canvas id="canvas" width="300" height="500"></canvas>
       <div class="toolbar">
         <div>
           <input type="range" id="scale" name="scale" min="10" max="100" />
-          <label for="volume">Масштаб</label>
+          <label for="scale">Масштаб</label>
+        </div>
+        <div>
+          <input type="range" id="rotateX" name="rotateX" min="0" max="360" />
+          <label for="rotateX">Поворот X</label>
+        </div>
+        <div>
+          <input type="range" id="rotateZ" name="rotateZ" min="0" max="360" />
+          <label for="rotateZ">Поворот Z</label>
         </div>
       </div>
     </div>
