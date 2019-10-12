@@ -1,7 +1,7 @@
-import State from './state';
 import Graphics, { Point } from './graphics';
 import Transform from './transform';
 import Shape from './shape';
+import { State } from './store';
 
 export default class ShapeComponent {
   private readonly graph: Graphics;
@@ -15,13 +15,13 @@ export default class ShapeComponent {
   }
 
   private getScreenPoint(l: number, b: number, state: State) {
-    const cartesianPoint = this.shape.getPoint(100, l, b);
-    const rotatedPoint = this.transform.rotate(
-      cartesianPoint,
-      state.alfa,
-      state.beta
-    );
-    return this.transform.cartesianToScreen(rotatedPoint);
+    let point = this.shape.getPoint(100, l, b);
+    point = this.transform.rotate(point, state.alfa, state.beta);
+    if (state.perspective) {
+      point = this.transform.perspective(point);
+    }
+    point = this.transform.scale(point, state.scale);
+    return this.transform.cartesianToScreen(point);
   }
 
   render(state: State) {

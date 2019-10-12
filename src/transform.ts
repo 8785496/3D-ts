@@ -30,4 +30,23 @@ export default class Transform {
       point.z * Math.cos(b);
     return { x: x, y: y, z: z };
   }
+
+  perspective(point: Point): Point {
+    const zk = -1000;
+    const zp = 0;
+    const z = point.z;
+    return {
+      x: (point.x * (zk - zp)) / (zk - z),
+      y: (point.y * (zk - zp)) / (zk - z),
+      z: z - zp
+    };
+  }
+
+  scale(point: Point, scale: number) {
+    return {
+      x: point.x * scale,
+      y: point.y * scale,
+      z: point.z * scale
+    };
+  }
 }

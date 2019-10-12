@@ -11,7 +11,7 @@
       <canvas id="canvas" width="300" height="500"></canvas>
       <div class="toolbar">
         <div>
-          <input type="range" id="scale" name="scale" min="10" max="100" />
+          <input type="range" id="scale" name="scale" min="10" max="200" />
           <label for="scale">Масштаб</label>
         </div>
         <div>
@@ -21,6 +21,13 @@
         <div>
           <input type="range" id="rotateZ" name="rotateZ" min="0" max="360" />
           <label for="rotateZ">Поворот Z</label>
+        </div>
+        <div>
+          <input type="checkbox" id="perspective" name="perspective" />
+          <label for="perspective">Перспектива</label>
+        </div>
+        <div>
+          <pre id="state"></pre>
         </div>
       </div>
     </div>
