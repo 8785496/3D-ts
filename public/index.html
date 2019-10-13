@@ -7,36 +7,89 @@
     <title>Графика</title>
   </head>
   <body>
-    <div class="container">
-      <canvas id="canvas" width="300" height="500"></canvas>
-      <div class="toolbar">
-        <div>
-          <select name="view" id="view">
-            <option value="skeleton">Каркас</option>
-            <option value="skeletonHidden">Каркас скрытый</option>
-          </select>
-          <label for="view">Вид</label>
-        </div>
-        <div>
-          <input type="range" id="scale" name="scale" min="10" max="200" />
-          <label for="scale">Масштаб</label>
-        </div>
-        <div>
-          <input type="range" id="rotateX" name="rotateX" min="0" max="360" />
-          <label for="rotateX">Поворот X</label>
-        </div>
-        <div>
-          <input type="range" id="rotateZ" name="rotateZ" min="0" max="360" />
-          <label for="rotateZ">Поворот Z</label>
-        </div>
-        <div>
-          <input type="checkbox" id="perspective" name="perspective" />
-          <label for="perspective">Перспектива</label>
-        </div>
-        <div>
-          <pre id="state"></pre>
+    <div class="my-container">
+      <div class="card canvas-wrapper">
+        <div class="card-body">
+          <canvas id="canvas" width="300" height="500"></canvas>
         </div>
       </div>
+      <!-- <div class="toolbar"> -->
+      <div class="card toolbar">
+        <div class="card-body">
+          <div class="form-group row">
+            <label for="view" class="col-sm-3 col-form-label">Вид</label>
+            <div class="col-sm-9">
+              <select name="view" id="view" class="form-control">
+                <option value="skeleton">Каркас</option>
+                <option value="skeletonHidden">Каркас скрытый</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="scale" class="col-sm-3 col-form-label">Масштаб</label>
+            <div class="col-sm-9">
+              <input
+                type="range"
+                id="scale"
+                name="scale"
+                min="10"
+                max="200"
+                class="form-control-range"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="rotateX" class="col-sm-3 col-form-label"
+              >Поворот X</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="range"
+                id="rotateX"
+                name="rotateX"
+                min="0"
+                max="360"
+                class="form-control-range"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="rotateZ" class="col-sm-3 col-form-label"
+              >Поворот Z</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="range"
+                id="rotateZ"
+                name="rotateZ"
+                min="0"
+                max="360"
+                class="form-control-range"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-3"></div>
+            <div class="col-sm-9">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  id="perspective"
+                  name="perspective"
+                  class="form-check-input"
+                />
+                <label for="perspective" class="form-check-label"
+                  >Перспектива</label
+                >
+              </div>
+            </div>
+          </div>
+          <div>
+            <pre id="state"></pre>
+          </div>
+        </div>
+      </div>
+      <!-- </div> -->
     </div>
     <script src="/bundle.js"></script>
   </body>

@@ -1,19 +1,33 @@
-$body-color: grey;
+$body-bg: grey;
 
-body {
-  background: $body-color;
-}
+@import 'node_modules/bootstrap/scss/functions';
+@import 'node_modules/bootstrap/scss/variables';
+@import 'node_modules/bootstrap/scss/mixins';
 
-.container {
+@import 'node_modules/bootstrap/scss/reboot';
+@import 'node_modules/bootstrap/scss/forms';
+@import 'node_modules/bootstrap/scss/grid';
+@import 'node_modules/bootstrap/scss/card';
+
+.my-container {
   display: flex;
   justify-content: center;
+  background: transparent;
+  margin-top: 15px;
 
-  canvas {
-    background: #fff;
+  .canvas-wrapper {
+    margin-right: 5px;
+
+    canvas {
+      background: #fff;
+    }
   }
 
   .toolbar {
-    background: #fff;
-    width: 300px;
+    width: 500px;
+
+    input[type='range'] {
+      margin-top: 10px;
+    }
   }
 }
