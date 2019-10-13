@@ -4,6 +4,13 @@ export interface Point {
   z?: number;
 }
 
+export interface Polygon {
+  p1: Point;
+  p2: Point;
+  p3: Point;
+  p4: Point;
+}
+
 export default class Graphics {
   private readonly context: CanvasRenderingContext2D;
   private readonly width: number;
@@ -24,6 +31,17 @@ export default class Graphics {
     this.context.beginPath();
     this.context.moveTo(p1.x, p1.y);
     this.context.lineTo(p2.x, p2.y);
+    this.context.stroke();
+  }
+
+  drawPolygon(polygon: Polygon) {
+    const { p1, p2, p3, p4 } = polygon;
+    this.context.strokeStyle = 'blue';
+    this.context.beginPath();
+    this.context.moveTo(p1.x, p1.y);
+    this.context.lineTo(p2.x, p2.y);
+    this.context.lineTo(p3.x, p3.y);
+    this.context.lineTo(p4.x, p4.y);
     this.context.closePath();
     this.context.stroke();
   }

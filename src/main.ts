@@ -5,7 +5,8 @@ import store, {
   SET_SCALE,
   SET_ROTATE_X,
   SET_ROTATE_Z,
-  SET_PERSPECTIVE
+  SET_PERSPECTIVE,
+  SET_VIEW
 } from './store';
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -15,40 +16,41 @@ const component = new ShapeComponent(canvas, shape);
 const statePre = document.getElementById('state');
 store.subscribe(() => {
   const state = store.getState();
-  // console.log(state);
   statePre.innerText = JSON.stringify(state, null, 2);
   component.render(state);
 });
 
-//#region Handlers
 const state = store.getState(); // initial state
 component.render(state);
 
+//#region Handlers
 const scale = document.getElementById('scale') as HTMLInputElement;
 scale.value = (state.scale * 100).toString();
-scale.addEventListener('input', e => {
-  const input = e.target as HTMLInputElement;
-  store.dispatch({ type: SET_SCALE, payload: Number(input.value) / 100 });
+scale.addEventListener('input', () => {
+  store.dispatch({ type: SET_SCALE, payload: Number(scale.value) / 100 });
 });
 
 const rotateX = document.getElementById('rotateX') as HTMLInputElement;
 rotateX.value = state.beta.toString();
-rotateX.addEventListener('input', e => {
-  const input = e.target as HTMLInputElement;
-  store.dispatch({ type: SET_ROTATE_X, payload: Number(input.value) });
+rotateX.addEventListener('input', () => {
+  store.dispatch({ type: SET_ROTATE_X, payload: Number(rotateX.value) });
 });
 
 const rotateZ = document.getElementById('rotateZ') as HTMLInputElement;
 rotateZ.value = state.alfa.toString();
 rotateZ.addEventListener('input', e => {
-  const input = e.target as HTMLInputElement;
-  store.dispatch({ type: SET_ROTATE_Z, payload: Number(input.value) });
+  store.dispatch({ type: SET_ROTATE_Z, payload: Number(rotateZ.value) });
 });
 
 const perspective = document.getElementById('perspective') as HTMLInputElement;
 perspective.checked = state.perspective;
-perspective.addEventListener('change', e => {
-  const input = e.target as HTMLInputElement;
-  store.dispatch({ type: SET_PERSPECTIVE, payload: input.checked });
+perspective.addEventListener('change', () => {
+  store.dispatch({ type: SET_PERSPECTIVE, payload: perspective.checked });
+});
+
+const viewInput = document.getElementById('view') as HTMLInputElement;
+viewInput.value = state.view;
+viewInput.addEventListener('change', () => {
+  store.dispatch({ type: SET_VIEW, payload: viewInput.value });
 });
 //#endregion

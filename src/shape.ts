@@ -1,4 +1,4 @@
-import { Point } from './graphics';
+import { Point, Polygon } from './graphics';
 
 export default class Shape {
   getSpherePoint(r: number, l: number, b: number): Point {
@@ -17,5 +17,14 @@ export default class Shape {
     const y = p.y;
     const z = 2 * p.z;
     return { x, y, z };
+  }
+
+  getPolygon(r: number, l: number, b: number, dL: number, dB: number): Polygon {
+    return {
+      p1: this.getPoint(r, l, b),
+      p2: this.getPoint(r, l, b + dB),
+      p3: this.getPoint(r, l + dL, b + dB),
+      p4: this.getPoint(r, l + dL, b)
+    };
   }
 }

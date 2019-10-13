@@ -11,6 +11,13 @@
       <canvas id="canvas" width="300" height="500"></canvas>
       <div class="toolbar">
         <div>
+          <select name="view" id="view">
+            <option value="skeleton">Каркас</option>
+            <option value="skeletonHidden">Каркас скрытый</option>
+          </select>
+          <label for="view">Вид</label>
+        </div>
+        <div>
           <input type="range" id="scale" name="scale" min="10" max="200" />
           <label for="scale">Масштаб</label>
         </div>

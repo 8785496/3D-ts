@@ -1,7 +1,7 @@
-import Graphics, { Point } from './graphics';
+import Graphics, { Point, Polygon } from './graphics';
 import Transform from './transform';
 import Shape from './shape';
-import { State } from './store';
+import store, { State, viewEnum } from './store';
 
 export default class ShapeComponent {
   private readonly graph: Graphics;
@@ -16,12 +16,28 @@ export default class ShapeComponent {
 
   private getScreenPoint(l: number, b: number, state: State) {
     let point = this.shape.getPoint(100, l, b);
-    point = this.transform.rotate(point, state.alfa, state.beta);
+    point = this.transform.rotatePoint(point, state.alfa, state.beta);
     if (state.perspective) {
-      point = this.transform.perspective(point);
+      point = this.transform.perspectivePoint(point);
     }
-    point = this.transform.scale(point, state.scale);
-    return this.transform.cartesianToScreen(point);
+    point = this.transform.scalePoint(point, state.scale);
+    return this.transform.cartesianToScreenPoint(point);
+  }
+
+  private getScreenPolygon(
+    l: number,
+    b: number,
+    dL: number,
+    dB: number,
+    state: State
+  ): Polygon {
+    let polygon = this.shape.getPolygon(100, l, b, dL, dB);
+    polygon = this.transform.rotatePolygon(polygon, state.alfa, state.beta);
+    if (state.perspective) {
+      polygon = this.transform.perspectivePolygon(polygon);
+    }
+    polygon = this.transform.scalePolygon(polygon, state.scale);
+    return this.transform.cartesianToScreenPolygon(polygon);
   }
 
   render(state: State) {
@@ -29,6 +45,17 @@ export default class ShapeComponent {
 
     const dB = state.step;
     const dL = state.step;
+
+    if (state.view === viewEnum.skeletonHidden) {
+      for (let b = -90; b < 90; b += dB) {
+        for (let l = 0; l < 360; l += dL) {
+          const polygon = this.getScreenPolygon(l, b, dL, dB, state);
+          this.graph.drawPolygon(polygon);
+        }
+      }
+      return;
+    }
+
     let prevPoint: Point;
 
     // meridians
