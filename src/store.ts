@@ -31,7 +31,7 @@ const initialState: State = {
   beta: 65,
   scale: 1,
   perspective: false,
-  view: viewEnum.skeleton
+  view: viewEnum.skeletonHidden
 };
 
 function reducer(state = initialState, action: Action): State {

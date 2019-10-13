@@ -2,16 +2,19 @@ import Graphics, { Point, Polygon } from './graphics';
 import Transform from './transform';
 import Shape from './shape';
 import store, { State, viewEnum } from './store';
+import ZBuffer from './z-buffer';
 
 export default class ShapeComponent {
   private readonly graph: Graphics;
   private readonly transform: Transform;
   private readonly shape: Shape;
+  private readonly zBuffer: ZBuffer;
 
   constructor(canvas: HTMLCanvasElement, shape: Shape) {
     this.graph = new Graphics(canvas);
     this.transform = new Transform(canvas.width, canvas.height);
     this.shape = shape;
+    this.zBuffer = new ZBuffer(canvas.width, canvas.height);
   }
 
   private getScreenPoint(l: number, b: number, state: State) {
@@ -47,10 +50,12 @@ export default class ShapeComponent {
     const dL = state.step;
 
     if (state.view === viewEnum.skeletonHidden) {
+      this.zBuffer.clearBuffer();
       for (let b = -90; b < 90; b += dB) {
         for (let l = 0; l < 360; l += dL) {
           const polygon = this.getScreenPolygon(l, b, dL, dB, state);
           this.graph.drawPolygon(polygon);
+          this.zBuffer.setPolygon(polygon);
         }
       }
       return;

@@ -45,4 +45,16 @@ export default class Graphics {
     this.context.closePath();
     this.context.stroke();
   }
+
+  drawBuffer(buffer: Array<number>) {
+    const imageData = this.context.createImageData(this.width, this.height);
+
+    for (let i = 0; i < buffer.length; i += 4) {
+      imageData.data[i] = buffer[i];
+      imageData.data[i + 1] = buffer[i + 1];
+      imageData.data[i + 2] = buffer[i + 2];
+      imageData.data[i + 3] = 255;
+    }
+    this.context.putImageData(imageData, 0, 0);
+  }
 }

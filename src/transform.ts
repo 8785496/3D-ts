@@ -12,7 +12,8 @@ export default class Transform {
   cartesianToScreenPoint(point: Point): Point {
     return {
       x: point.x + this.width / 2,
-      y: this.height / 2 - point.y
+      y: this.height / 2 - point.y,
+      z: point.z
     };
   }
 
