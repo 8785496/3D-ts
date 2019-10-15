@@ -1,7 +1,7 @@
 import Graphics, { Point, Polygon } from './graphics';
 import Transform from './transform';
 import Shape from './shape';
-import store, { State, viewEnum } from './store';
+import { State, ViewEnum } from './store';
 import ZBuffer from './z-buffer';
 
 export default class ShapeComponent {
@@ -49,7 +49,7 @@ export default class ShapeComponent {
     const dB = state.step;
     const dL = state.step;
 
-    if (state.view === viewEnum.skeletonHidden) {
+    if (state.view === ViewEnum.skeletonHidden) {
       this.zBuffer.clearBuffer();
       for (let b = -90; b < 90; b += dB) {
         for (let l = 0; l < 360; l += dL) {

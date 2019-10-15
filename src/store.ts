@@ -1,6 +1,6 @@
 import { createStore } from 'redux';
 
-export enum viewEnum {
+export enum ViewEnum {
   skeleton = 'skeleton',
   skeletonHidden = 'skeletonHidden'
 }
@@ -11,7 +11,7 @@ export interface State {
   beta: number;
   scale: number;
   perspective: boolean;
-  view: viewEnum;
+  view: ViewEnum;
 }
 
 export interface Action {
@@ -31,10 +31,10 @@ const initialState: State = {
   beta: 65,
   scale: 1,
   perspective: false,
-  view: viewEnum.skeletonHidden
+  view: ViewEnum.skeletonHidden
 };
 
-function reducer(state = initialState, action: Action): State {
+export function reducer(state = initialState, action: Action): State {
   switch (action.type) {
     case SET_SCALE:
       return {
