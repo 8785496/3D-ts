@@ -54,10 +54,11 @@ export default class ShapeComponent {
       for (let b = -90; b < 90; b += dB) {
         for (let l = 0; l < 360; l += dL) {
           const polygon = this.getScreenPolygon(l, b, dL, dB, state);
-          this.graph.drawPolygon(polygon);
           this.zBuffer.setPolygon(polygon);
+          // this.graph.drawPolygon(polygon);
         }
       }
+      this.graph.drawBuffer(this.zBuffer.getBuffer());
       return;
     }
 

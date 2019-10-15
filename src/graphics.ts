@@ -15,6 +15,7 @@ export default class Graphics {
   private readonly context: CanvasRenderingContext2D;
   private readonly width: number;
   private readonly height: number;
+  private imageData: ImageData;
 
   constructor(canvas: HTMLCanvasElement) {
     this.context = canvas.getContext('2d');
@@ -47,6 +48,10 @@ export default class Graphics {
   }
 
   drawBuffer(buffer: Array<number>) {
+    // if (!this.imageData) {
+    //   this.imageData = this.context.createImageData(this.width, this.height);
+    // }
+    // const imageData = this.imageData;
     const imageData = this.context.createImageData(this.width, this.height);
 
     for (let i = 0; i < buffer.length; i += 4) {
