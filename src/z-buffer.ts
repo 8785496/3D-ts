@@ -1,4 +1,6 @@
 import { Polygon, Point } from './graphics';
+import Scanner from './scanner';
+
 
 export default class ZBuffer {
   private readonly width: number;
@@ -12,20 +14,26 @@ export default class ZBuffer {
     this.clearBuffer();
   }
 
-  setPoint(point: Point) {
+  setPoint(point: Point, color: number) {
     const i = (Math.round(point.y) * this.width + Math.round(point.x)) * 4;
-    this.buffer[i] = 255;
+    if (i < 0 || i >= this.buffer.length || this.buffer[i + 3] > point.z) {
+      return;
+    }
+    this.buffer[i] = color;
     this.buffer[i + 1] = 0;
     this.buffer[i + 2] = 0;
     this.buffer[i + 3] = point.z;
   }
 
   setPolygon(polygon: Polygon) {
-    const { p1, p2, p3, p4 } = polygon;
-    this.setPoint(p1);
-    this.setPoint(p2);
-    this.setPoint(p3);
-    this.setPoint(p4);
+    const points: Array<Point> = Scanner.scanPolygon(polygon);
+    for (const point of points) {
+      this.setPoint(point, 255);
+    }
+    const contours = Scanner.getLinePoints(polygon);
+    for (const point of contours) {
+      this.setPoint(point, 0);
+    }
   }
 
   clearBuffer() {
@@ -33,7 +41,7 @@ export default class ZBuffer {
       this.buffer[i] = 200;
       this.buffer[i + 1] = 200;
       this.buffer[i + 2] = 200;
-      this.buffer[i + 3] = 0;
+      this.buffer[i + 3] = -100000;
     }
   }
 
