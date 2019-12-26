@@ -1,5 +1,6 @@
 import { Polygon, Point } from './graphics';
 import Scanner from './scanner';
+import { ColorUtil } from './color';
 
 
 export default class ZBuffer {
@@ -14,21 +15,22 @@ export default class ZBuffer {
     this.clearBuffer();
   }
 
-  setPoint(point: Point, color: number) {
+  setPoint(point: Point, colorValue: number) {
     const i = (Math.round(point.y) * this.width + Math.round(point.x)) * 4;
     if (i < 0 || i >= this.buffer.length || this.buffer[i + 3] > point.z) {
       return;
     }
-    this.buffer[i] = color;
-    this.buffer[i + 1] = 0;
-    this.buffer[i + 2] = 0;
+    const color = ColorUtil.intToColor(colorValue);
+    this.buffer[i] = color.r;
+    this.buffer[i + 1] = color.g;
+    this.buffer[i + 2] = color.b;
     this.buffer[i + 3] = point.z;
   }
 
   setPolygon(polygon: Polygon) {
     const points: Array<Point> = Scanner.scanPolygon(polygon);
     for (const point of points) {
-      this.setPoint(point, 255);
+      this.setPoint(point, polygon!.color);
     }
     const contours = Scanner.getLinePoints(polygon);
     for (const point of contours) {

@@ -36,6 +36,7 @@ export default class ShapeComponent {
   ): Polygon {
     let polygon = this.shape.getPolygon(100, l, b, dL, dB);
     polygon = this.transform.rotatePolygon(polygon, state.alfa, state.beta);
+    polygon = this.transform.fillNormalAndColor(polygon);
     if (state.perspective) {
       polygon = this.transform.perspectivePolygon(polygon);
     }

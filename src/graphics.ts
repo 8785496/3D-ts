@@ -9,6 +9,8 @@ export interface Polygon {
   p2: Point;
   p3: Point;
   p4: Point;
+  normal?: Point;
+  color?: number;
 }
 
 export default class Graphics {

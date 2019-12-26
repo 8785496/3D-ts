@@ -1,4 +1,5 @@
 import { Point, Polygon } from './graphics';
+import VectorUtil from './vector';
 
 export default class Transform {
   private readonly width: number;
@@ -33,7 +34,7 @@ export default class Transform {
   }
 
   perspectivePoint(point: Point): Point {
-    const zk = -1000;
+    const zk = 1000;
     const zp = 0;
     const z = point.z;
     return {
@@ -53,6 +54,7 @@ export default class Transform {
 
   perspectivePolygon(polygon: Polygon): Polygon {
     return {
+      ...polygon,
       p1: this.perspectivePoint(polygon.p1),
       p2: this.perspectivePoint(polygon.p2),
       p3: this.perspectivePoint(polygon.p3),
@@ -62,6 +64,7 @@ export default class Transform {
 
   scalePolygon(polygon: Polygon, scale: number): Polygon {
     return {
+      ...polygon,
       p1: this.scalePoint(polygon.p1, scale),
       p2: this.scalePoint(polygon.p2, scale),
       p3: this.scalePoint(polygon.p3, scale),
@@ -71,6 +74,7 @@ export default class Transform {
 
   rotatePolygon(polygon: Polygon, alfa: number, beta: number): Polygon {
     return {
+      ...polygon,
       p1: this.rotatePoint(polygon.p1, alfa, beta),
       p2: this.rotatePoint(polygon.p2, alfa, beta),
       p3: this.rotatePoint(polygon.p3, alfa, beta),
@@ -78,8 +82,17 @@ export default class Transform {
     };
   }
 
+  fillNormalAndColor(polygon: Polygon) {
+    return {
+      ...polygon,
+      normal: VectorUtil.getNormal(polygon),
+      color: 0x666666
+    }
+  }
+
   cartesianToScreenPolygon(polygon: Polygon): Polygon {
     return {
+      ...polygon,
       p1: this.cartesianToScreenPoint(polygon.p1),
       p2: this.cartesianToScreenPoint(polygon.p2),
       p3: this.cartesianToScreenPoint(polygon.p3),
