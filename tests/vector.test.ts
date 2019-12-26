@@ -11,3 +11,10 @@ it('get normal', () => {
   const result = VectorUtil.getNormal(polygon);
   expect(result).toEqual({ x: 0, y: 0, z: 1 });
 })
+
+it('get theta', () => {
+  const v1 = { x: 1, y: 0, z: 0 };
+  const v2 = { x: 0, y: 1, z: 0 };
+  const cos = VectorUtil.cosTheta(v1, v2);
+  expect(cos).toBe(0);
+})

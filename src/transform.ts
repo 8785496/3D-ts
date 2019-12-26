@@ -1,5 +1,6 @@
 import { Point, Polygon } from './graphics';
 import VectorUtil from './vector';
+import { ColorUtil } from './color';
 
 export default class Transform {
   private readonly width: number;
@@ -82,11 +83,19 @@ export default class Transform {
     };
   }
 
-  fillNormalAndColor(polygon: Polygon) {
+  fillNormalAndColor(polygon: Polygon, diffuseC: number) {
+    const normal = VectorUtil.getNormal(polygon);
+    const s = { x: 0, y: 0, z: 1000 };
+    let cosTheta = VectorUtil.cosTheta(normal, s);
+    cosTheta = cosTheta < 0 ? 0 : cosTheta;
+    const r = 221 * diffuseC * cosTheta;
+    const g = 221 * diffuseC * cosTheta;
+    const b = 221 * diffuseC * cosTheta;
+
     return {
       ...polygon,
       normal: VectorUtil.getNormal(polygon),
-      color: 0x666666
+      color: ColorUtil.colorToInt({ r, g, b })
     }
   }
 

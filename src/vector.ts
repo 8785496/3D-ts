@@ -11,7 +11,7 @@ export default class VectorUtil {
 
   static normalize(vector: Point): Point {
     const { x, y, z } = vector;
-    const length = Math.sqrt(x * x + y * y + z * z);
+    const length = VectorUtil.getLength(vector);
     return {
       x: x / length,
       y: y / length,
@@ -25,5 +25,16 @@ export default class VectorUtil {
       y: v1.z * v2.x - v1.x * v2.z,
       z: v1.x * v2.y - v1.y * v2.x
     }
+  }
+
+  static cosTheta(v1: Point, v2: Point) {
+    const lengthV1 = VectorUtil.getLength(v1);
+    const lengthV2 = VectorUtil.getLength(v2);
+    return (v1.x * v2.x + v1.y * v2.y + v1.z * v2.z) / (lengthV1 * lengthV2);
+  }
+
+  static getLength(vector: Point): number {
+    const { x, y, z } = vector;
+    return Math.sqrt(x * x + y * y + z * z);
   }
 }

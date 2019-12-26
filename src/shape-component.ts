@@ -36,7 +36,9 @@ export default class ShapeComponent {
   ): Polygon {
     let polygon = this.shape.getPolygon(100, l, b, dL, dB);
     polygon = this.transform.rotatePolygon(polygon, state.alfa, state.beta);
-    polygon = this.transform.fillNormalAndColor(polygon);
+    if (state.view === ViewEnum.grayScale) {
+      polygon = this.transform.fillNormalAndColor(polygon, state.diffuseC);
+    }
     if (state.perspective) {
       polygon = this.transform.perspectivePolygon(polygon);
     }
@@ -50,13 +52,16 @@ export default class ShapeComponent {
     const dB = state.step;
     const dL = state.step;
 
-    if (state.view === ViewEnum.skeletonHidden) {
+    if (state.view === ViewEnum.skeletonHidden || state.view === ViewEnum.grayScale) {
       this.zBuffer.clearBuffer();
       for (let b = -90; b < 90; b += dB) {
         for (let l = 0; l < 360; l += dL) {
           const polygon = this.getScreenPolygon(l, b, dL, dB, state);
-          this.zBuffer.setPolygon(polygon);
-          // this.graph.drawPolygon(polygon);
+          if (state.view === ViewEnum.skeletonHidden) {
+            this.zBuffer.setSkeletonHiddenPolygon(polygon);
+          } else if (state.view === ViewEnum.grayScale) {
+            this.zBuffer.setGrayScalePolygon(polygon);
+          }
         }
       }
       this.graph.drawBuffer(this.zBuffer.getBuffer());

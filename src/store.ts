@@ -2,7 +2,8 @@ import { createStore } from 'redux';
 
 export enum ViewEnum {
   skeleton = 'skeleton',
-  skeletonHidden = 'skeletonHidden'
+  skeletonHidden = 'skeletonHidden',
+  grayScale = 'grayScale'
 }
 
 export interface State {
@@ -12,6 +13,7 @@ export interface State {
   scale: number;
   perspective: boolean;
   view: ViewEnum;
+  diffuseC: number; // diffuse reflection coefficient
 }
 
 export interface Action {
@@ -24,6 +26,7 @@ export const SET_ROTATE_X = 'SET_ROTATE_X';
 export const SET_ROTATE_Z = 'SET_ROTATE_Z';
 export const SET_PERSPECTIVE = 'SET_PERSPECTIVE';
 export const SET_VIEW = 'SET_VIEW';
+export const SET_DIFFUSE_C = 'SET_DIFFUSE_C';
 
 const initialState: State = {
   step: 10,
@@ -31,7 +34,8 @@ const initialState: State = {
   beta: 65,
   scale: 1,
   perspective: false,
-  view: ViewEnum.skeletonHidden
+  view: ViewEnum.grayScale,
+  diffuseC: 0.8
 };
 
 export function reducer(state = initialState, action: Action): State {
@@ -60,6 +64,11 @@ export function reducer(state = initialState, action: Action): State {
       return {
         ...state,
         view: action.payload
+      };
+    case SET_DIFFUSE_C:
+      return {
+        ...state,
+        diffuseC: action.payload / 100
       };
     default:
       return state;

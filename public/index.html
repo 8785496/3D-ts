@@ -22,6 +22,7 @@
               <select name="view" id="view" class="form-control">
                 <option value="skeleton">Каркас</option>
                 <option value="skeletonHidden">Каркас скрытый</option>
+                <option value="grayScale">Закрашенный</option>
               </select>
             </div>
           </div>
@@ -82,6 +83,24 @@
                   >Перспектива</label
                 >
               </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              for="rotateZ"
+              class="col-sm-3 col-form-label"
+              title="Коофициент диффузного отражения"
+              >К. диф. отр.</label
+            >
+            <div class="col-sm-9">
+              <input
+                type="range"
+                id="diffuseC"
+                name="diffuseC"
+                min="0"
+                max="100"
+                class="form-control-range"
+              />
             </div>
           </div>
           <div>

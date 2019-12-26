@@ -6,7 +6,8 @@ import store, {
   SET_ROTATE_X,
   SET_ROTATE_Z,
   SET_PERSPECTIVE,
-  SET_VIEW
+  SET_VIEW,
+  SET_DIFFUSE_C
 } from './store';
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
@@ -52,5 +53,11 @@ const viewInput = document.getElementById('view') as HTMLInputElement;
 viewInput.value = state.view;
 viewInput.addEventListener('change', () => {
   store.dispatch({ type: SET_VIEW, payload: viewInput.value });
+});
+
+const diffuseC = document.getElementById('diffuseC') as HTMLInputElement;
+diffuseC.value = (state.diffuseC * 100).toString();
+diffuseC.addEventListener('input', () => {
+  store.dispatch({ type: SET_DIFFUSE_C, payload: diffuseC.value });
 });
 //#endregion
