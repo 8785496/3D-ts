@@ -3,8 +3,15 @@ import { Polygon, Point } from './graphics';
 export default class VectorUtil {
   static getNormal(polygon: Polygon): Point {
     const { p1, p2, p3, p4 } = polygon;
-    const v1 = { x: p2.x - p1.x, y: p2.y - p1.y, z: p2.z - p1.z };
-    const v2 = { x: p4.x - p1.x, y: p4.y - p1.y, z: p4.z - p1.z };
+    const eps = 0.001
+    let v1, v2 : Point
+    if (Math.abs(p1.x - p4.x) < eps && Math.abs(p1.y - p4.y) < eps) {
+      v1 = { x: p2.x - p1.x, y: p2.y - p1.y, z: p2.z - p1.z };
+      v2 = { x: p3.x - p1.x, y: p3.y - p1.y, z: p3.z - p1.z };
+    } else {
+      v1 = { x: p2.x - p1.x, y: p2.y - p1.y, z: p2.z - p1.z };
+      v2 = { x: p4.x - p1.x, y: p4.y - p1.y, z: p4.z - p1.z };
+    }
     const v = VectorUtil.cross(v1, v2);
     return VectorUtil.normalize(v);
   }
