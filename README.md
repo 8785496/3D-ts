@@ -4,8 +4,10 @@
 
 Запустить проект
 
-```> npm install
-> npm start```
+```
+> npm install
+> npm start
+```
 
 Собрать проект
 
