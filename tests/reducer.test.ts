@@ -16,7 +16,12 @@ const initialState: State = {
   scale: 1,
   step: 10,
   view: ViewEnum.skeleton,
-  diffuseC: 0.8
+  ambientC: 0.5,
+  diffuseC: 0.5,
+  specularC: 0.5,
+  f: 1,
+  rotateLightX: 0,
+  rotateLightZ: 0
 };
 
 it('set scale', () => {

@@ -18,12 +18,25 @@
         <div class="card-body">
           <div class="form-group row">
             <label for="view" class="col-sm-3 col-form-label">Вид</label>
-            <div class="col-sm-9">
+            <div class="col-sm-5">
               <select name="view" id="view" class="form-control">
                 <option value="skeleton">Каркас</option>
                 <option value="skeletonHidden">Каркас скрытый</option>
                 <option value="grayScale">Закрашенный</option>
               </select>
+            </div>
+            <div class="col-sm-4 perspective">
+              <div class="form-check">
+                <input
+                  type="checkbox"
+                  id="perspective"
+                  name="perspective"
+                  class="form-check-input"
+                />
+                <label for="perspective" class="form-check-label"
+                  >Перспектива</label
+                >
+              </div>
             </div>
           </div>
           <div class="form-group row">
@@ -70,29 +83,31 @@
             </div>
           </div>
           <div class="form-group row">
-            <div class="col-sm-3"></div>
-            <div class="col-sm-9">
-              <div class="form-check">
-                <input
-                  type="checkbox"
-                  id="perspective"
-                  name="perspective"
-                  class="form-check-input"
-                />
-                <label for="perspective" class="form-check-label"
-                  >Перспектива</label
-                >
-              </div>
+            <label
+              for="ambientC"
+              class="col-sm-5 col-form-label"
+              title="Коэффициент фонового свечения"
+              >Коэфф. фон. свечения</label
+            >
+            <div class="col-sm-7">
+              <input
+                type="range"
+                id="ambientC"
+                name="ambientC"
+                min="0"
+                max="100"
+                class="form-control-range"
+              />
             </div>
           </div>
           <div class="form-group row">
             <label
-              for="rotateZ"
-              class="col-sm-3 col-form-label"
-              title="Коофициент диффузного отражения"
-              >К. диф. отр.</label
+              for="diffuseC"
+              class="col-sm-5 col-form-label"
+              title="Коэффициент диффузного отражения"
+              >Коэфф. диф. отр.</label
             >
-            <div class="col-sm-9">
+            <div class="col-sm-7">
               <input
                 type="range"
                 id="diffuseC"
@@ -103,8 +118,72 @@
               />
             </div>
           </div>
-          <div>
-            <pre id="state"></pre>
+          <div class="form-group row">
+            <label
+              for="specularC"
+              class="col-sm-5 col-form-label"
+              title="Коэффициент зеркального отражения"
+              >Коэфф. зеркал. отр.</label
+            >
+            <div class="col-sm-7">
+              <input
+                type="range"
+                id="specularC"
+                name="specularC"
+                min="0"
+                max="100"
+                class="form-control-range"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="f" class="col-sm-5 col-form-label">Коэффициент f</label>
+            <div class="col-sm-7">
+              <input
+                type="range"
+                id="f"
+                name="f"
+                min="1"
+                max="200"
+                class="form-control-range"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              for="rotateLightX"
+              class="col-sm-5 col-form-label"
+              title="Поворот источника света X"
+              >Поворот ист. света X</label
+            >
+            <div class="col-sm-7">
+              <input
+                type="range"
+                id="rotateLightX"
+                name="rotateLightX"
+                min="0"
+                max="360"
+                class="form-control-range"
+              />
+            </div>
+          </div>
+          <div class="form-group row">
+            <label
+              for="rotateLightZ"
+              class="col-sm-5 col-form-label"
+              title="Поворот источника света X"
+              >Поворот ист. света Z</label
+            >
+            <div class="col-sm-7">
+              <input
+                type="range"
+                id="rotateLightZ"
+                name="rotateLightZ"
+                min="0"
+                max="360"
+                class="form-control-range"
+              />
+            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Point, Polygon } from './graphics';
+import { Point, Polygon, Vector } from './graphics';
 import VectorUtil from './vector';
 import { ColorUtil } from './color';
 
@@ -83,19 +83,29 @@ export default class Transform {
     };
   }
 
-  fillNormalAndColor(polygon: Polygon, diffuseC: number) {
+  fillNormalAndColor(polygon: Polygon, ambientC: number, diffuseC: number, specularC: number, f: number, alfa: number, beta: number) {
     const normal = VectorUtil.getNormal(polygon);
-    const s = { x: 0, y: 0, z: 1000 };
-    let cosTheta = VectorUtil.cosTheta(normal, s);
-    cosTheta = cosTheta < 0 ? 0 : cosTheta;
-    const r = 221 * diffuseC * cosTheta;
-    const g = 221 * diffuseC * cosTheta;
-    const b = 221 * diffuseC * cosTheta;
+    const s = VectorUtil.normalize(this.rotatePoint({ x: 0, y: 1000, z: 0 }, alfa, beta));
+    let lambert = VectorUtil.cosTheta(normal, s);
+    lambert = lambert < 0 ? 0 : lambert;
+
+    const v: Vector = { x: 0, y: 0, z: 1 };
+    const h = VectorUtil.normalize(VectorUtil.addition(v, s));
+    const phong = VectorUtil.cosTheta(h, normal);
+
+    const ir = 221, ig = 221, ib = 221;
+    const r = ir * ambientC + ir * diffuseC * lambert + ir * specularC * Math.pow(phong, f);
+    const g = ig * ambientC + ig * diffuseC * lambert + ig * specularC * Math.pow(phong, f);
+    const b = ib * ambientC + ib * diffuseC * lambert + ib * specularC * Math.pow(phong, f);
 
     return {
       ...polygon,
       normal: VectorUtil.getNormal(polygon),
-      color: ColorUtil.colorToInt({ r, g, b })
+      color: ColorUtil.colorToInt({
+        r: r > 255 ? 255 : r,
+        g: g > 255 ? 255 : g,
+        b: b > 255 ? 255 : b
+      })
     }
   }
 

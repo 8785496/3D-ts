@@ -18,10 +18,10 @@ export default class ZBuffer {
   }
 
   setPoint(point: Point, colorValue: number) {
-    if (point.y >= this.height || point.y < 0) {
+    if (point.y > this.height - 1 || point.y < 0) {
       return;
     }
-    if (point.x >= this.width || point.x < 0) {
+    if (point.x > this.width - 1 || point.x < 0) {
       return;
     }
     const i = (Math.round(point.y) * this.width + Math.round(point.x)) * 4;

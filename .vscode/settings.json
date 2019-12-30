@@ -3,6 +3,7 @@
     "DEVTOOLS",
     "Interop",
     "endregion",
-    "mixins"
+    "mixins",
+    "phong"
   ]
 }

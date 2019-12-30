@@ -7,17 +7,20 @@ import store, {
   SET_ROTATE_Z,
   SET_PERSPECTIVE,
   SET_VIEW,
-  SET_DIFFUSE_C
+  SET_DIFFUSE_C,
+  SET_LIGHT_ROTATE_X,
+  SET_LIGHT_ROTATE_Z,
+  SET_AMBIENT_C,
+  SET_SPECULAR_C,
+  SET_F
 } from './store';
 
 const canvas = document.getElementById('canvas') as HTMLCanvasElement;
 const shape = new Shape();
 const component = new ShapeComponent(canvas, shape);
 
-const statePre = document.getElementById('state');
 store.subscribe(() => {
   const state = store.getState();
-  statePre.innerText = JSON.stringify(state, null, 2);
   component.render(state);
 });
 
@@ -25,39 +28,56 @@ const state = store.getState(); // initial state
 component.render(state);
 
 //#region Handlers
-const scale = document.getElementById('scale') as HTMLInputElement;
-scale.value = (state.scale * 100).toString();
-scale.addEventListener('input', () => {
-  store.dispatch({ type: SET_SCALE, payload: Number(scale.value) / 100 });
+listen('input', 'scale', (state.scale * 100).toString(), e => {
+  store.dispatch({ type: SET_SCALE, payload: Number(e.target.value) / 100 });
 });
 
-const rotateX = document.getElementById('rotateX') as HTMLInputElement;
-rotateX.value = state.beta.toString();
-rotateX.addEventListener('input', () => {
-  store.dispatch({ type: SET_ROTATE_X, payload: Number(rotateX.value) });
+listen('input', 'ambientC', (state.ambientC * 100).toString(), e => {
+  store.dispatch({ type: SET_AMBIENT_C, payload: Number(e.target.value) / 100 });
 });
 
-const rotateZ = document.getElementById('rotateZ') as HTMLInputElement;
-rotateZ.value = state.alfa.toString();
-rotateZ.addEventListener('input', e => {
-  store.dispatch({ type: SET_ROTATE_Z, payload: Number(rotateZ.value) });
+listen('input', 'diffuseC', (state.diffuseC * 100).toString(), e => {
+  store.dispatch({ type: SET_DIFFUSE_C, payload: Number(e.target.value) / 100 });
 });
 
-const perspective = document.getElementById('perspective') as HTMLInputElement;
-perspective.checked = state.perspective;
-perspective.addEventListener('change', () => {
-  store.dispatch({ type: SET_PERSPECTIVE, payload: perspective.checked });
+listen('input', 'specularC', (state.specularC * 100).toString(), e => {
+  store.dispatch({ type: SET_SPECULAR_C, payload: Number(e.target.value) / 100 });
 });
 
-const viewInput = document.getElementById('view') as HTMLInputElement;
-viewInput.value = state.view;
-viewInput.addEventListener('change', () => {
-  store.dispatch({ type: SET_VIEW, payload: viewInput.value });
+listen('input', 'f', state.f.toString(), e => {
+  store.dispatch({ type: SET_F, payload: Number(e.target.value) });
 });
 
-const diffuseC = document.getElementById('diffuseC') as HTMLInputElement;
-diffuseC.value = (state.diffuseC * 100).toString();
-diffuseC.addEventListener('input', () => {
-  store.dispatch({ type: SET_DIFFUSE_C, payload: diffuseC.value });
+listen('input', 'rotateLightX', state.rotateLightX.toString(), e => {
+  store.dispatch({ type: SET_LIGHT_ROTATE_X, payload: Number(e.target.value) });
 });
+
+listen('input', 'rotateLightZ', state.rotateLightZ.toString(), e => {
+  store.dispatch({ type: SET_LIGHT_ROTATE_Z, payload: Number(e.target.value) });
+});
+
+listen('input', 'rotateX', state.beta.toString(), e => {
+  store.dispatch({ type: SET_ROTATE_X, payload: Number(e.target.value) });
+});
+
+listen('input', 'rotateZ', state.alfa.toString(), e => {
+  store.dispatch({ type: SET_ROTATE_Z, payload: Number(e.target.value) });
+});
+
+listen('change', 'perspective', state.perspective, e => {
+  store.dispatch({ type: SET_PERSPECTIVE, payload: e.target.checked });
+});
+
+listen('change', 'view', state.view, e => {
+  store.dispatch({ type: SET_VIEW, payload: e.target.value });
+});
+
+function listen(type: string, id: string, value: any, listener: (e: any) => void) {
+  const element = document.getElementById(id) as HTMLInputElement;
+  if (!element) {
+    return;
+  }
+  element.value = value;
+  element.addEventListener(type, listener);
+}
 //#endregion

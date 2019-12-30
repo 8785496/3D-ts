@@ -37,7 +37,15 @@ export default class ShapeComponent {
     let polygon = this.shape.getPolygon(100, l, b, dL, dB);
     polygon = this.transform.rotatePolygon(polygon, state.alfa, state.beta);
     if (state.view === ViewEnum.grayScale) {
-      polygon = this.transform.fillNormalAndColor(polygon, state.diffuseC);
+      polygon = this.transform.fillNormalAndColor(
+        polygon,
+        state.ambientC,
+        state.diffuseC,
+        state.specularC,
+        state.f,
+        state.rotateLightZ,
+        state.rotateLightX
+      );
     }
     if (state.perspective) {
       polygon = this.transform.perspectivePolygon(polygon);
