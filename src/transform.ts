@@ -91,7 +91,8 @@ export default class Transform {
 
     const v: Vector = { x: 0, y: 0, z: 1 };
     const h = VectorUtil.normalize(VectorUtil.addition(v, s));
-    const phong = VectorUtil.cosTheta(h, normal);
+    let phong = VectorUtil.cosTheta(h, normal);
+    phong = phong < 0 ? 0 : phong;
 
     const ir = 221, ig = 221, ib = 221;
     const r = ir * ambientC + ir * diffuseC * lambert + ir * specularC * Math.pow(phong, f);
